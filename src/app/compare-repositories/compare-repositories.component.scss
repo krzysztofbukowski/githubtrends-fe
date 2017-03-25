@@ -15,6 +15,14 @@
     }
 }
 
-.btn {
+
+.btn-primary {
     font-size: 24px;
+    background: black;
+    border: none;
+    outline: none;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }

@@ -1,0 +1,16 @@
+.title {
+    font-family: Lato;
+    color: #666;
+    padding: 10px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 18px;
+    text-align: center;
+    color: #aaa;
+}
+
+.title + .subtitle {
+    margin-top: -20px;
+}

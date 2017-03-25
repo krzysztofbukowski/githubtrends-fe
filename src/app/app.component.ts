@@ -5,11 +5,12 @@ import {AppConfig} from './config/app.config';
     selector: 'angular2-webpack-app',
     template: `
         <h1 class='title'>github trends</h1>
+        <p class="subtitle">Compare github repositories</p>
         <div class="container center">
             <compare-repositories></compare-repositories>
         </div>
     `,
-    styles: [
+    styleUrls: [
         'app.component.scss'
     ]
 })
