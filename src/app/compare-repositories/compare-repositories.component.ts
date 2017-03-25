@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {RepositoriesService} from '../api/repositories.service';
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {RepositoriesService} from "../api/repositories.service";
 
 
 @Component({
-    selector: 'compare-repositories',
-    templateUrl: 'compare-repositories.component.html',
+    selector: "compare-repositories",
+    templateUrl: "compare-repositories.component.html",
     styleUrls: [
-        'compare-repositories.component.scss'
+        "compare-repositories.component.scss"
     ]
 })
 export class CompareRepositoriesComponent {

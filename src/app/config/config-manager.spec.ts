@@ -1,7 +1,7 @@
-import {ConfigManager} from './config-manager';
-import {AppConfig} from './app.config';
+import {ConfigManager} from "./config-manager";
+import {AppConfig} from "./app.config";
 
-describe('ConfigManager', () => {
+describe("ConfigManager", () => {
 
     let configManager: ConfigManager;
 
@@ -9,19 +9,19 @@ describe('ConfigManager', () => {
         configManager = new ConfigManager();
     });
 
-    it('should allow adding and retrieving config', () => {
+    it("should allow adding and retrieving config", () => {
         let config: AppConfig = <AppConfig> {
-            apiHost: 'https://test:9999'
+            apiHost: "https://test:9999"
         };
 
-        configManager.addConfig('production', config);
-        let result = configManager.getConfig('production');
+        configManager.addConfig("production", config);
+        let result = configManager.getConfig("production");
 
         expect(result).to.be.eql(config);
     });
 
-    it('should return undefined if config not found', () => {
-        let result = configManager.getConfig('this does not exist');
+    it("should return undefined if config not found", () => {
+        let result = configManager.getConfig("this does not exist");
         expect(result).to.be.undefined;
     });
 });

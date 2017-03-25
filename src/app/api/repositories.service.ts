@@ -1,17 +1,17 @@
 /**
  * Created by krzysztofbukowski on 25/03/2017.
  */
-import {Inject, Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {AppConfig} from '../config/app.config';
-import {Observable} from 'rxjs';
+import {Inject, Injectable} from "@angular/core";
+import {Http} from "@angular/http";
+import {AppConfig} from "../config/app.config";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class RepositoriesService {
 
     config: AppConfig;
 
-    constructor(private http: Http, @Inject('appConfig')config: AppConfig) {
+    constructor(private http: Http, @Inject("appConfig")config: AppConfig) {
         this.config = config;
     }
 
