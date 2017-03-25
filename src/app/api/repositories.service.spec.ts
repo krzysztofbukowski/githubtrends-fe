@@ -1,14 +1,14 @@
-import {RepositoriesService} from './repositories.service';
-import {ReflectiveInjector} from '@angular/core';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {RepositoriesService} from "./repositories.service";
+import {ReflectiveInjector} from "@angular/core";
+import {MockBackend, MockConnection} from "@angular/http/testing";
 import {
     BaseRequestOptions,
     ConnectionBackend,
     Http,
     RequestOptions
-} from '@angular/http';
+} from "@angular/http";
 
-describe('RepositoriesService', () => {
+describe("RepositoriesService", () => {
 
     let repositoriesService: RepositoriesService;
     let backend: MockBackend;
@@ -19,9 +19,9 @@ describe('RepositoriesService', () => {
                 {provide: ConnectionBackend, useClass: MockBackend},
                 {provide: RequestOptions, useClass: BaseRequestOptions},
                 {
-                    provide: 'appConfig',
+                    provide: "appConfig",
                     useValue: {
-                        'apiHost': 'http://api.localhost'
+                        "apiHost": "http://api.localhost"
                     }
                 },
                 Http,
@@ -35,13 +35,13 @@ describe('RepositoriesService', () => {
         }
     );
 
-    it('should create an instance of RepositoriesService', () => {
+    it("should create an instance of RepositoriesService", () => {
         expect(repositoriesService).to.be.instanceOf(RepositoriesService);
     });
 
-    describe('getStats', () => {
-        it('should call current service url', () => {
-            repositoriesService.getStats('repo1', 'repo2');
+    describe("getStats", () => {
+        it("should call current service url", () => {
+            repositoriesService.getStats("repo1", "repo2");
             expect(lastConnection).to.not.be.undefined;
         });
     });
