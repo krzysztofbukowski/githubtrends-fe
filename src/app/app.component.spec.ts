@@ -1,13 +1,19 @@
-import {TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {CompareRepositoriesComponent} from './compare-repositories/compare-repositories.component';
 import {FormsModule} from '@angular/forms';
+import {RepositoriesService} from './api/repositories.service';
+import {HttpModule} from '@angular/http';
 
 describe('AppComponent', () => {
-    beforeEach((done) => {
+    let fixture: ComponentFixture<AppComponent>;
+    let comp: AppComponent;
+
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
-                FormsModule
+                FormsModule,
+                HttpModule
             ],
             declarations: [
                 AppComponent,
@@ -17,18 +23,26 @@ describe('AppComponent', () => {
                 {
                     provide: 'appConfig',
                     useValue: {}
-                }
+                },
+                RepositoriesService
             ]
-        }).compileComponents().then(() => {
-            done();
-        }).catch((e) => {
-            done();
         });
+
+        fixture = TestBed.createComponent(AppComponent);
+        comp = fixture.componentInstance;
     });
 
     it('should create an instance of AppComponent', () => {
-        let fixture = TestBed.createComponent(AppComponent);
-        expect(fixture.componentInstance).to.be.instanceOf(AppComponent);
+        expect(comp).to.be.instanceOf(AppComponent);
+    });
+
+    describe('onResultAvailable', () => {
+
+        it('should modify results', () => {
+            comp.onResultAvailable([1, 2]);
+
+            expect(comp.result).to.be.eql([1, 2]);
+        });
     });
 
 });
