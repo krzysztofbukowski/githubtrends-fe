@@ -1,24 +1,27 @@
-import {NgModule} from "@angular/core";
-import {BrowserModule}  from "@angular/platform-browser";
-import {AppComponent} from "./app.component";
-import {PackagesComponent} from "./packages.component";
+import {NgModule} from '@angular/core';
+import {BrowserModule}  from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
+import {AppComponent} from './app.component';
 import {ConfigManager} from './config/config-manager';
 import {DevelopmentConfig} from './config/development.config';
 import {TestingConfig} from './config/testing.config';
+import {ProductionConfig} from './config/production.config';
 
-var configManager:ConfigManager = new ConfigManager();
+
+let configManager: ConfigManager = new ConfigManager();
 configManager.addConfig('development', new DevelopmentConfig());
 configManager.addConfig('testing', new TestingConfig());
+configManager.addConfig('testing', new ProductionConfig());
 
-declare var process:any;
+declare var process: any;
 
 @NgModule({
     imports: [
-        BrowserModule
+        BrowserModule,
+        FormsModule
     ],
     declarations: [
         AppComponent,
-        PackagesComponent
     ],
     providers: [{
         provide: 'appConfig',

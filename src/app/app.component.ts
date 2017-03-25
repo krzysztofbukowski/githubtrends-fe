@@ -1,34 +1,26 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, Input} from '@angular/core';
 import {AppConfig} from './config/app.config';
 
 @Component({
     selector: 'angular2-webpack-app',
     template: `
-<h1 class='title'>Hello Angular 2!</h1>
-<packages></packages>
-`,
-    styles: [`
-        .title {
-            font-family: Lato;
-            background: crimson;
-            color: white;
-            padding: 10px;
-        }
-        `
+        <h1 class='title'>github trends</h1>
+        <div class="container center">
+            <input type="text" class="repository"
+                   placeholder="Enter a github repository name"
+                   [ngModel]="repo1"
+            />
+        </div>
+    `,
+    styleUrls: [
+        'app.component.scss'
     ]
 })
 export class AppComponent {
 
-    constructor(@Inject('appConfig')config:AppConfig) {
-        console.log(config);
-    }
+    repo1: string = '';
+    repo2: string;
 
-    /**
-     * Returns the component's name
-     *
-     * @returns {string}
-     */
-    getName(): string {
-        return 'AppComponent';
+    constructor(@Inject('appConfig')config: AppConfig) {
     }
 }

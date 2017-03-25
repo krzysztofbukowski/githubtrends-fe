@@ -6,14 +6,15 @@
     const
         webpack = require('webpack'),
         path = require('path'),
-        HtmlWebpackPlugin = require('html-webpack-plugin');
+        HtmlWebpackPlugin = require('html-webpack-plugin'),
+        ExtractTextPlugin = require("extract-text-webpack-plugin");
 
     module.exports = {
         devtool: 'source-map',
         entry: {
             main: "./src/main.ts",
             vendor: "./src/vendor.ts",
-            polyfills: "./src/polyfills.ts",
+            polyfills: "./src/polyfills.ts"
         },
 
         output: {
@@ -44,6 +45,10 @@
                     test: /\.html$/,
                     loader: 'html-loader'
                 },
+                {
+                    test: /\.scss$/,
+                    loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
+                }
             ]
         },
 
@@ -56,6 +61,7 @@
             new HtmlWebpackPlugin({
                   template: 'src/index.html'
             }),
+            new ExtractTextPlugin("styles.css"),
             new webpack.optimize.CommonsChunkPlugin({
                 name: ['main', 'vendor', 'polyfills']
             }),

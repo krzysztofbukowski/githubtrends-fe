@@ -1,5 +1,5 @@
 import {AppConfig} from './app.config';
 
 export class TestingConfig implements AppConfig {
-    apiEndpoint:string = "https://testing/api/v1"
+    apiHost:string = "https://api.test.githubtrends.pl/"
 }
