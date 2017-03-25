@@ -38,6 +38,10 @@
                     test: /\.html$/,
                     loader: 'html-loader'
                 },
+                {
+                    test: /\.scss$/,
+                    loaders: ['raw-loader', 'sass-loader']
+                }
             ]
         },
     };

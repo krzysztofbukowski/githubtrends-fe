@@ -1,0 +1,22 @@
+    <form method="get">
+        <div class="form-group compare-repositories-container">
+            <input type="text" class="repository"
+                   placeholder="Enter a github repository name"
+                   name="repository1"
+                   [(ngModel)]="repo1"
+            />
+            <div class="vs">vs</div>
+            <input type="text" class="repository"
+                   placeholder="Enter a github repository name"
+                   name="repository2"
+                   [(ngModel)]="repo2"
+            />
+        </div>
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-5">
+                <button type="submit" value="Compare" class="btn btn-primary"
+                        (click)="compare(repo1, repo2)">Compare
+                </button>
+            </div>
+        </div>
+    </form>

@@ -1,0 +1,20 @@
+.compare-repositories-container {
+    display: flex;
+    align-items: center;
+    margin: 50px 0;
+
+    .repository {
+        font-size: 24px;
+        padding: 10px;
+        width: 50%;
+    }
+
+    .vs {
+        font-size: 24px;
+        margin: 0 15px;
+    }
+}
+
+.btn {
+    font-size: 24px;
+}

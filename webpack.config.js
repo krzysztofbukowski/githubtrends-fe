@@ -47,7 +47,7 @@
                 },
                 {
                     test: /\.scss$/,
-                    loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
+                    loaders: ['raw-loader', 'sass-loader']
                 }
             ]
         },
@@ -61,7 +61,6 @@
             new HtmlWebpackPlugin({
                   template: 'src/index.html'
             }),
-            new ExtractTextPlugin("styles.css"),
             new webpack.optimize.CommonsChunkPlugin({
                 name: ['main', 'vendor', 'polyfills']
             }),

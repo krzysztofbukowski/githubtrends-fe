@@ -6,6 +6,7 @@ import {ConfigManager} from './config/config-manager';
 import {DevelopmentConfig} from './config/development.config';
 import {TestingConfig} from './config/testing.config';
 import {ProductionConfig} from './config/production.config';
+import {CompareRepositoriesComponent} from './compare-repositories/compare-repositories.component';
 
 
 let configManager: ConfigManager = new ConfigManager();
@@ -22,6 +23,7 @@ declare var process: any;
     ],
     declarations: [
         AppComponent,
+        CompareRepositoriesComponent
     ],
     providers: [{
         provide: 'appConfig',

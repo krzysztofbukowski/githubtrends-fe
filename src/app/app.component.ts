@@ -6,20 +6,17 @@ import {AppConfig} from './config/app.config';
     template: `
         <h1 class='title'>github trends</h1>
         <div class="container center">
-            <input type="text" class="repository"
-                   placeholder="Enter a github repository name"
-                   [ngModel]="repo1"
-            />
+            <compare-repositories></compare-repositories>
         </div>
     `,
-    styleUrls: [
+    styles: [
         'app.component.scss'
     ]
 })
 export class AppComponent {
 
     repo1: string = '';
-    repo2: string;
+    repo2: string = '';
 
     constructor(@Inject('appConfig')config: AppConfig) {
     }
