@@ -7,6 +7,7 @@ import {
     Http,
     RequestOptions
 } from "@angular/http";
+import {TestBed} from "@angular/core/testing";
 
 describe("RepositoriesService", () => {
 
@@ -39,10 +40,32 @@ describe("RepositoriesService", () => {
         expect(repositoriesService).to.be.instanceOf(RepositoriesService);
     });
 
+    describe("getEndpoint", () => {
+        it("should return the endpoint string", () => {
+            let config = this.injector.get("appConfig");
+
+            let result = repositoriesService.getEndpoint(
+                "owner1/repo1",
+                "owner2/repo2"
+            );
+
+            expect(result).to.be.string;
+            expect(result).to.be.eq(config.apiHost + "/repos/owner1/repo1,owner2/repo2");
+        });
+    });
+
+
+
     describe("getStats", () => {
         it("should call current service url", () => {
+            let http = this.injector.get(Http);
+            let getStub = sinon.stub(http, "get");
+            getStub.returns({
+                map: () => {}
+            });
+
             repositoriesService.getStats("repo1", "repo2");
-            expect(lastConnection).to.not.be.undefined;
+            expect(getStub.calledOnce).to.be.true;
         });
     });
 

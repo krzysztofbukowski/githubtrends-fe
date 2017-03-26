@@ -4,6 +4,9 @@ import {CompareRepositoriesComponent} from "./compare-repositories/compare-repos
 import {FormsModule} from "@angular/forms";
 import {RepositoriesService} from "./api/repositories.service";
 import {HttpModule} from "@angular/http";
+import {Head2HeadComponent} from "./head-2-head/head-2-head.component";
+import {Head2HeadChartComponent} from "./head-2-head/head-2-head-chart.component";
+import {Head2HeadService} from "./head-2-head/head-2-head.service";
 
 describe("AppComponent", () => {
     let fixture: ComponentFixture<AppComponent>;
@@ -17,14 +20,17 @@ describe("AppComponent", () => {
             ],
             declarations: [
                 AppComponent,
-                CompareRepositoriesComponent
+                CompareRepositoriesComponent,
+                Head2HeadComponent,
+                Head2HeadChartComponent
             ],
             providers: [
                 {
                     provide: "appConfig",
                     useValue: {}
                 },
-                RepositoriesService
+                RepositoriesService,
+                Head2HeadService
             ]
         });
 
@@ -37,11 +43,15 @@ describe("AppComponent", () => {
     });
 
     describe("onResultAvailable", () => {
+        it("should use head 2 head service to transform data if data valid", () => {
+            let service = TestBed.get(Head2HeadService);
+            let transformStub = sinon.stub(service, "transform");
 
-        it("should modify results", () => {
+            transformStub.returns([1, 2]);
             comp.onResultAvailable([1, 2]);
 
             expect(comp.result).to.be.eql([1, 2]);
+            expect(transformStub.calledOnce).to.be.true;
         });
     });
 
