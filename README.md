@@ -9,7 +9,7 @@ You can install it using [nvm](https://github.com/creationix/nvm).
 
 ### Setup
 
-After cloning the repository and successful NodeJS installation you need to install app's dependencies.
+After cloning the repository and successful NodeJS installation you need to install the app's dependencies.
 In the project path run:
 
     $ npm install
