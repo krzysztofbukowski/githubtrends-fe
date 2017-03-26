@@ -48,7 +48,11 @@
                 {
                     test: /\.scss$/,
                     loaders: ['raw-loader', 'sass-loader']
-                }
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                    loader: 'file-loader?name=assets/[name].[hash].[ext]'
+                },
             ]
         },
 
@@ -64,6 +68,7 @@
             new webpack.optimize.CommonsChunkPlugin({
                 name: ['main', 'vendor', 'polyfills']
             }),
+            new ExtractTextPlugin({})
         ],
 
         devServer: {
