@@ -1,18 +1,10 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {AppConfig} from "./config/app.config";
+import {Head2HeadService} from "./head-2-head/head-2-head.service";
 
 @Component({
     selector: "angular2-webpack-app",
-    template: `
-        <h1 class="title">github trends</h1>
-        <p class="subtitle">Compare github repositories</p>
-        <div class="container center">
-            <compare-repositories
-                    (onResultAvailable)="onResultAvailable($event)"
-            ></compare-repositories>
-        </div>
-        
-    `,
+    templateUrl: "app.component.html",
     styleUrls: [
         "app.component.scss"
     ]
@@ -22,11 +14,13 @@ export class AppComponent {
     repo1: string = "";
     repo2: string = "";
     result: any;
+    showResult: boolean;
 
-    constructor(@Inject("appConfig")config: AppConfig) {
+    constructor(@Inject("appConfig")config: AppConfig,
+                private head2headService: Head2HeadService) {
     }
 
     onResultAvailable(data: any): void {
-        this.result = data;
+        this.result = this.head2headService.transform(data);
     }
 }

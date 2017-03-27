@@ -1,0 +1,12 @@
+.head-2-head-chart {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.6em;
+
+    .head-2-head-chart-item {
+        margin: 5px 0;
+        padding: 5px;
+        color: white;
+        background-color: #505050;
+    }
+}

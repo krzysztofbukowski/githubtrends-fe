@@ -1,0 +1,13 @@
+<h1 class="title">github trends</h1>
+<p class="subtitle">Compare github repositories</p>
+<div class="container center">
+    <compare-repositories
+            (onResultAvailable)="onResultAvailable($event)"
+    ></compare-repositories>
+</div>
+
+<div class="container">
+    <head-2-head *ngIf="result"
+                 [result]="result"
+    ></head-2-head>
+</div>

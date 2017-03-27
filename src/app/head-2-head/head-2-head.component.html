@@ -1,0 +1,50 @@
+<div class="head-2-head">
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Date of the last merged pull request</p>
+            <head-2-head-chart [items]="lastMergedPullRequest"></head-2-head-chart>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Date of the latest release</p>
+            <head-2-head-chart [items]="latestRelease"></head-2-head-chart>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Number of forks</p>
+            <head-2-head-chart [items]="forks"></head-2-head-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Number of watchers</p>
+            <head-2-head-chart [items]="watchers"></head-2-head-chart>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Number of stars</p>
+            <head-2-head-chart [items]="stars"></head-2-head-chart>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Number of open pull requests</p>
+            <head-2-head-chart
+                    [items]="openPullRequests"></head-2-head-chart>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <p class="title">Number of closed pull requests</p>
+            <head-2-head-chart
+                    [items]="closedPullRequests"></head-2-head-chart>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,8 @@ import {CompareRepositoriesComponent} from "./compare-repositories.component";
 import {FormsModule} from "@angular/forms";
 import {RepositoriesService} from "../api/repositories.service";
 import {HttpModule} from "@angular/http";
+import {Head2HeadComponent} from "../head-2-head/head-2-head.component";
+import {Head2HeadChartComponent} from "../head-2-head/head-2-head-chart.component";
 
 describe("CompareRepositoriesComponent", () => {
     let comp: CompareRepositoriesComponent;
@@ -30,7 +32,9 @@ describe("CompareRepositoriesComponent", () => {
                 HttpModule
             ],
             declarations: [
-                CompareRepositoriesComponent
+                CompareRepositoriesComponent,
+                Head2HeadComponent,
+                Head2HeadChartComponent
             ],
             providers: [
                 RepositoriesService,
@@ -72,14 +76,38 @@ describe("CompareRepositoriesComponent", () => {
                 });
             });
 
-            let stub = createGetStatsStub(promise);
+            createGetStatsStub(promise);
             comp.compare("repo1", "repo2");
 
             promise.then(() => {
                 expect(onResultAvailableSpy.withArgs([]).calledOnce).to.be.true;
                 done();
+            }).catch(() => {
+                done();
             });
 
+        });
+    });
+
+    describe("validateData", () => {
+        it("should set not found flag if the repository 1 is null", () => {
+            comp.validateData([null, {}]);
+            expect(comp.repository1Error).to.be.eq(CompareRepositoriesComponent.ERROR_NOT_FOUND);
+        });
+
+        it("should set not found flag if the repository 2 is null", () => {
+            comp.validateData([null, null]);
+            expect(comp.repository2Error).to.be.eq(CompareRepositoriesComponent.ERROR_NOT_FOUND);
+        });
+    });
+
+    describe("ngOnInit", () => {
+        it("should initialise messeges", () => {
+           comp.ngOnInit();
+
+           expect(comp.messages).to.not.be.null;
+           expect(comp.messages).to.haveOwnProperty(CompareRepositoriesComponent.ERROR_NOT_FOUND);
+           expect(comp.messages).to.haveOwnProperty(CompareRepositoriesComponent.ERROR_INVALID);
         });
     });
 
