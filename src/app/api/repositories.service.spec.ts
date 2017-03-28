@@ -45,12 +45,12 @@ describe("RepositoriesService", () => {
             let config = this.injector.get("appConfig");
 
             let result = repositoriesService.getEndpoint(
-                "owner1/repo1",
-                "owner2/repo2"
+                "owner1/repository1",
+                "owner2/repository2"
             );
 
             expect(result).to.be.string;
-            expect(result).to.be.eq(config.apiHost + "/repos/owner1/repo1,owner2/repo2");
+            expect(result).to.be.eq(config.apiHost + "/repos/owner1/repository1,owner2/repository2");
         });
     });
 
@@ -64,7 +64,7 @@ describe("RepositoriesService", () => {
                 map: () => {}
             });
 
-            repositoriesService.getStats("repo1", "repo2");
+            repositoriesService.getStats("repository1", "repository2");
             expect(getStub.calledOnce).to.be.true;
         });
     });

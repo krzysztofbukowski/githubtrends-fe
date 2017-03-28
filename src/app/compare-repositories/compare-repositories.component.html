@@ -1,37 +1,38 @@
-    <form method="get">
+    <form method="get" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="form-group compare-repositories-container">
             <div class="repository-container">
                 <input type="text" class="repository"
                        [class.ng-invalid]="repository1Error"
                        [class.ng-valid]="!repository1Error"
-                       placeholder="Enter a github repository name"
+                       placeholder="i.e angular/angular"
                        name="repository1"
-                       repository-name
+                       repositoryName="[a-zA-Z0-9\.\/]+"
+                       formControlName="repository1"
+                       autocomplete="off"
                        required
-
-                       [(ngModel)]="repo1"
                 />
-                <div class="error" *ngIf="repository1Error">{{messages[repository1Error]}}</div>
+                <div class="error" *ngIf="formErrors.repository1">{{formErrors.repository1}}</div>
             </div>
             <div class="vs">vs</div>
             <div class="repository-container">
                 <input type="text" class="repository"
-                       placeholder="Enter a github repository name"
+                       placeholder="i.e facebook/react"
                        [class.ng-invalid]="repository2Error"
                        [class.ng-valid]="!repository2Error"
                        name="repository2"
+                       autocomplete="off"
+                       repositoryName="[a-zA-Z0-9\.\/]+"
+                       formControlName="repository2"
                        required
-                       [(ngModel)]="repo2"
                 />
-                <div class="error" *ngIf="repository2Error">{{messages[repository2Error]}}</div>
+                <div class="error" *ngIf="formErrors.repository2">{{formErrors.repository2}}</div>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-md-6 col-md-offset-5">
+            <div class="col-md-12 center">
                 <button type="submit" value="Compare" class="btn btn-primary"
-                        (click)="compare(repo1, repo2)"
-                        [disabled]="formSubmitted"
-                        [class.disabled]="formSubmitted"
+                        [disabled]="!form.valid"
+                        [class.disabled]="!form.valid"
                 >Compare
                 </button>
             </div>

@@ -3,11 +3,12 @@
  */
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {CompareRepositoriesComponent} from "./compare-repositories.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RepositoriesService} from "../api/repositories.service";
 import {HttpModule} from "@angular/http";
 import {Head2HeadComponent} from "../head-2-head/head-2-head.component";
 import {Head2HeadChartComponent} from "../head-2-head/head-2-head-chart.component";
+import {Observable} from "rxjs";
 
 describe("CompareRepositoriesComponent", () => {
     let comp: CompareRepositoriesComponent;
@@ -29,7 +30,8 @@ describe("CompareRepositoriesComponent", () => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule,
-                HttpModule
+                HttpModule,
+                ReactiveFormsModule
             ],
             declarations: [
                 CompareRepositoriesComponent,
@@ -63,7 +65,7 @@ describe("CompareRepositoriesComponent", () => {
                 })
             );
 
-            comp.compare("repo1", "repo2");
+            comp.compare("repository1", "repository2");
             expect(getStatsStub.calledOnce).to.be.true;
         });
 
@@ -77,7 +79,7 @@ describe("CompareRepositoriesComponent", () => {
             });
 
             createGetStatsStub(promise);
-            comp.compare("repo1", "repo2");
+            comp.compare("repository1", "repository2");
 
             promise.then(() => {
                 expect(onResultAvailableSpy.withArgs([]).calledOnce).to.be.true;
@@ -105,9 +107,25 @@ describe("CompareRepositoriesComponent", () => {
         it("should initialise messeges", () => {
            comp.ngOnInit();
 
-           expect(comp.messages).to.not.be.null;
-           expect(comp.messages).to.haveOwnProperty(CompareRepositoriesComponent.ERROR_NOT_FOUND);
-           expect(comp.messages).to.haveOwnProperty(CompareRepositoriesComponent.ERROR_INVALID);
+           expect(comp.validationMessages).to.not.be.null;
+        });
+    });
+
+    describe("onSubmit", () => {
+        it("should trigger compare", () => {
+            comp.buildForm();
+            comp.form.value.repository1 = "angular/angular";
+            comp.form.value.repository2 = "angular/angular.js";
+
+            let getStatsStub = sinon.stub(TestBed.get(RepositoriesService), "getStats");
+            getStatsStub.withArgs(
+                comp.form.value.repository1,
+                comp.form.value.repository2
+            ).returns(new Observable<Response>());
+
+            comp.onSubmit();
+
+            expect(getStatsStub.calledOnce).to.be.true;
         });
     });
 

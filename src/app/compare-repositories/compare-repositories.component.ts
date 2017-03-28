@@ -1,5 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {RepositoriesService} from "../api/repositories.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {repositoryNameValidator} from "./repository-name.directive";
 
 
 @Component({
@@ -13,28 +15,35 @@ export class CompareRepositoriesComponent implements OnInit {
     public static readonly ERROR_NOT_FOUND = "not_found";
     public static readonly ERROR_INVALID = "invalid";
 
-    repo1: string = "angular/angular";
-    repo2: string = "angular/angular.js";
+    form: FormGroup;
+    formErrors = {
+        "repository1": "",
+        "repository2": ""
+    };
+
+    repository1: string = "";
+    repository2: string = "";
     formSubmitted: boolean;
     repository1Error: string;
     repository2Error: string;
-    messages: {};
+    validationMessages: {};
 
     @Output() onResultAvailable = new EventEmitter<any>();
 
-    constructor(private service: RepositoriesService) {
+    constructor(private service: RepositoriesService,
+                private formBuilder: FormBuilder) {
+
     }
 
     /**
      * Get stats about two given repositories using a service
      *
-     * @param string repo1
-     * @param string repo2
+     * @param string repository1
+     * @param string repository2
      */
-    compare(repo1: string, repo2: string): void {
-        this.formSubmitted = true;
+    compare(repository1: string, repository2: string): void {
 
-        let stats = this.service.getStats(repo1, repo2);
+        let stats = this.service.getStats(repository1, repository2);
         stats.toPromise().then(
             response => {
                 this.formSubmitted = false;
@@ -42,9 +51,33 @@ export class CompareRepositoriesComponent implements OnInit {
                     this.onResultAvailable.emit(response);
                 }
             }
-        );
+        ).catch(() => {
+            // @todo: handle error
+        });
     }
 
+    onValueChanged(data?: any) {
+        const form = this.form;
+
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = "";
+            const control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.formErrors[field] += messages[key] + " ";
+                }
+            }
+        }
+    }
+
+    onSubmit(): void {
+        this.compare(
+            this.form.value.repository1,
+            this.form.value.repository2
+        );
+    }
 
     validateData(data: any): boolean {
         let result = data[0] !== null && data[1] !== null;
@@ -56,9 +89,43 @@ export class CompareRepositoriesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.messages = {};
+        this.validationMessages = {
+            repository1: {
+                required: "Repository name can't be empty",
+                repositoryName: "Invalid repository name",
+                notFound: "Repository not found"
+            },
+            repository2: {
+                required: "Repository name can't be empty",
+                repositoryName: "Invalid repository name",
+                notFound: "Repository not found"
+            }
+        };
 
-        this.messages[CompareRepositoriesComponent.ERROR_NOT_FOUND] = "Repository not found";
-        this.messages[CompareRepositoriesComponent.ERROR_INVALID] = "Incorrect repository name";
+        this.buildForm();
     };
+
+
+    buildForm() {
+        this.form = this.formBuilder.group({
+            "repository1": [
+                this.repository1,
+                [
+                    Validators.required,
+                    repositoryNameValidator(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                ]
+            ],
+            "repository2": [
+                this.repository2,
+                [
+                    Validators.required,
+                    repositoryNameValidator(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                ]
+            ],
+        });
+
+        this.form.valueChanges
+            .subscribe(data => this.onValueChanged(data));
+        this.onValueChanged();
+    }
 }
