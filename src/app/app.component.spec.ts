@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {AppComponent} from "./app.component";
 import {CompareRepositoriesComponent} from "./compare-repositories/compare-repositories.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RepositoriesService} from "./api/repositories.service";
 import {HttpModule} from "@angular/http";
 import {Head2HeadComponent} from "./head-2-head/head-2-head.component";
@@ -16,7 +16,8 @@ describe("AppComponent", () => {
         TestBed.configureTestingModule({
             imports: [
                 FormsModule,
-                HttpModule
+                HttpModule,
+                ReactiveFormsModule
             ],
             declarations: [
                 AppComponent,
