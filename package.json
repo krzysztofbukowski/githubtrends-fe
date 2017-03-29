@@ -1,8 +1,8 @@
 {
-  "name": "angular2-webpack",
+  "name": "githubtrends",
   "version": "1.0.0",
   "author": "Krzysztof Bukowski <ja@krzysztofbukowski.pl>",
-  "description": "Angular2 starter app with webpack, karma, mocha, chai and sinon",
+  "description": "fe app for gitbubtrends.pl",
   "scripts": {
     "test": "karma start",
     "start": "concurrently --kill-others \"npm run serve\" \"npm test\"",
