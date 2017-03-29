@@ -13,6 +13,7 @@ import {RepositoryNameValidatorDirective} from "./compare-repositories/repositor
 import {Head2HeadComponent} from "./head-2-head/head-2-head.component";
 import {Head2HeadChartComponent} from "./head-2-head/head-2-head-chart.component";
 import {Head2HeadService} from "./head-2-head/head-2-head.service";
+import { LoadingIconComponent } from "./loading-icon/loading-icon.component";
 
 
 const configManager: ConfigManager = new ConfigManager();
@@ -35,7 +36,8 @@ const env = process.env.ENV || "development";
         CompareRepositoriesComponent,
         RepositoryNameValidatorDirective,
         Head2HeadComponent,
-        Head2HeadChartComponent
+        Head2HeadChartComponent,
+        LoadingIconComponent
     ],
     providers: [{
         provide: "appConfig",

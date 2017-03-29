@@ -9,6 +9,7 @@ import {HttpModule} from "@angular/http";
 import {Head2HeadComponent} from "../head-2-head/head-2-head.component";
 import {Head2HeadChartComponent} from "../head-2-head/head-2-head-chart.component";
 import {Observable} from "rxjs";
+import { LoadingIconComponent } from "../loading-icon/loading-icon.component";
 
 describe("CompareRepositoriesComponent", () => {
     let comp: CompareRepositoriesComponent;
@@ -36,7 +37,8 @@ describe("CompareRepositoriesComponent", () => {
             declarations: [
                 CompareRepositoriesComponent,
                 Head2HeadComponent,
-                Head2HeadChartComponent
+                Head2HeadChartComponent,
+                LoadingIconComponent
             ],
             providers: [
                 RepositoriesService,
@@ -126,6 +128,22 @@ describe("CompareRepositoriesComponent", () => {
             comp.onSubmit();
 
             expect(getStatsStub.calledOnce).to.be.true;
+        });
+
+        it("should set formSubmitted to true", () => {
+            comp.buildForm();
+            comp.form.value.repository1 = "angular/angular";
+            comp.form.value.repository2 = "angular/angular.js";
+
+            let getStatsStub = sinon.stub(TestBed.get(RepositoriesService), "getStats");
+            getStatsStub.withArgs(
+                comp.form.value.repository1,
+                comp.form.value.repository2
+            ).returns(new Observable<Response>());
+
+            comp.onSubmit();
+
+            expect(comp.formSubmitted).to.be.true;
         });
     });
 
