@@ -7,7 +7,7 @@
         webpack = require('webpack');
 
     module.exports = {
-        devtool: 'inline-source-transform',
+        devtool: 'inline-source-map',
         resolve: {
             extensions: ['.ts', '.js', '.map.js']
         },

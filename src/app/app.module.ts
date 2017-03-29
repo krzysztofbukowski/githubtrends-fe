@@ -15,13 +15,14 @@ import {Head2HeadChartComponent} from "./head-2-head/head-2-head-chart.component
 import {Head2HeadService} from "./head-2-head/head-2-head.service";
 
 
-let configManager: ConfigManager = new ConfigManager();
+const configManager: ConfigManager = new ConfigManager();
 configManager.addConfig("development", new DevelopmentConfig());
 configManager.addConfig("testing", new TestingConfig());
 configManager.addConfig("testing", new ProductionConfig());
 
-
 declare var process: any;
+
+const env = process.env.ENV || "development";
 
 @NgModule({
     imports: [
@@ -38,7 +39,7 @@ declare var process: any;
     ],
     providers: [{
         provide: "appConfig",
-        useValue: configManager.getConfig(process.env.ENV)
+        useValue: configManager.getConfig(env)
     },
         RepositoriesService,
         Head2HeadService
