@@ -81,11 +81,12 @@ export class CompareRepositoriesComponent implements OnInit {
         let result = data[0] !== null && data[1] !== null;
 
         if (data[0] == null) {
-            this.form.get("repository1").setErrors({"notFound" : true});
+            this.formErrors.repository1 = this.validationMessages["repository1"]["notFound"];
+
         }
 
         if (data[1] == null) {
-
+            this.formErrors.repository2 = this.validationMessages["repository2"]["notFound"];
         }
         //
         // this.repository1Error = data[0] === null ? CompareRepositoriesComponent.ERROR_NOT_FOUND : null;
@@ -109,12 +110,6 @@ export class CompareRepositoriesComponent implements OnInit {
         };
 
         this.buildForm();
-        let repository = this.form.get("repository2");
-        repository.setErrors({
-            "notFound": true
-        });
-
-        this.onValueChanged();
     };
 
 
@@ -124,20 +119,19 @@ export class CompareRepositoriesComponent implements OnInit {
                 this.repository1,
                 [
                     Validators.required,
-                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/),
                 ]
             ],
             "repository2": [
                 this.repository2,
                 [
                     Validators.required,
-                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/),
                 ]
             ],
         });
 
         this.form.valueChanges
             .subscribe(() => this.onValueChanged());
-        this.onValueChanged();
     }
 }

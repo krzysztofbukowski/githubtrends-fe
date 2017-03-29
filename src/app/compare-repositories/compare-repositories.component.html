@@ -9,6 +9,8 @@
                        formControlName="repository1"
                        autocomplete="off"
                        required
+                       [class.ng-invalid]="formErrors.repository1"
+                       [class.ng-valid]="!formErrors.repository1"
                 />
                 <div class="error" *ngIf="formErrors.repository1">{{formErrors.repository1}}</div>
             </div>
@@ -20,6 +22,8 @@
                        autocomplete="off"
                        formControlName="repository2"
                        required
+                       [class.ng-invalid]="formErrors.repository2"
+                       [class.ng-valid]="!formErrors.repository2"
                 />
                 <div class="error" *ngIf="formErrors.repository2">{{formErrors.repository2}}</div>
             </div>
