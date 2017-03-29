@@ -1,11 +1,5 @@
 # githubtrends-fe
 
-<center>
-    <img src="https://angular.io/resources/images/logos/angular2/angular.png" height="200px"/>
-    <img src="https://node-os.com/images/nodejs.png" height="200px"/>
-   
-</center>
-<br/><br/><br/>
 Front end application for the github trends website.
 It's built using Angular 2.
 
@@ -39,6 +33,10 @@ Tests can be run by invoking the following command:
     $ npm test
     
 Unit test runner generates a code coverage report available in `coverage/html/report/`
+
+<center>
+    <img src="https://angular.io/resources/images/logos/angular2/angular.png" height="100px"/>
+</center>
 
 
 
