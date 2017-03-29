@@ -21,6 +21,10 @@ export class AppComponent {
     }
 
     onResultAvailable(data: any): void {
-        this.result = this.head2headService.transform(data);
+        if (data) {
+            this.result = this.head2headService.transform(data);
+        } else {
+            this.result = null;
+        }
     }
 }
