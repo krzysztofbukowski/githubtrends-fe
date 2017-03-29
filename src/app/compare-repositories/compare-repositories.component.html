@@ -2,11 +2,10 @@
         <div class="form-group compare-repositories-container">
             <div class="repository-container">
                 <input type="text" class="repository"
-                       [class.ng-invalid]="repository1Error"
-                       [class.ng-valid]="!repository1Error"
+                       [class.ng-invalid]="formErrors.repository1"
+                       [class.ng-valid]="!formErrors.repository1"
                        placeholder="i.e angular/angular"
                        name="repository1"
-                       repositoryName="[a-zA-Z0-9\.\/]+"
                        formControlName="repository1"
                        autocomplete="off"
                        required
@@ -17,11 +16,8 @@
             <div class="repository-container">
                 <input type="text" class="repository"
                        placeholder="i.e facebook/react"
-                       [class.ng-invalid]="repository2Error"
-                       [class.ng-valid]="!repository2Error"
                        name="repository2"
                        autocomplete="off"
-                       repositoryName="[a-zA-Z0-9\.\/]+"
                        formControlName="repository2"
                        required
                 />

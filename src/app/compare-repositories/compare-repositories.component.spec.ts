@@ -93,17 +93,15 @@ describe("CompareRepositoriesComponent", () => {
         });
     });
 
-    describe("validateData", () => {
-        it("should set not found flag if the repository 1 is null", () => {
-            comp.validateData([null, {}]);
-            expect(comp.repository1Error).to.be.eq(CompareRepositoriesComponent.ERROR_NOT_FOUND);
-        });
-
-        it("should set not found flag if the repository 2 is null", () => {
-            comp.validateData([null, null]);
-            expect(comp.repository2Error).to.be.eq(CompareRepositoriesComponent.ERROR_NOT_FOUND);
-        });
-    });
+    // describe("validateData", () => {
+    //     it("should set not found flag if the repository 1 is null", () => {
+    //         comp.validateData([null, {}]);
+    //     });
+    //
+    //     it("should set not found flag if the repository 2 is null", () => {
+    //         comp.validateData([null, null]);
+    //     });
+    // });
 
     describe("ngOnInit", () => {
         it("should initialise messeges", () => {

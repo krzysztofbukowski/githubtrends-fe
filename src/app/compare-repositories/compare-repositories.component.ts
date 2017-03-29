@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
 import {RepositoriesService} from "../api/repositories.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {repositoryNameValidator} from "./repository-name.directive";
 
 
 @Component({
@@ -12,8 +11,6 @@ import {repositoryNameValidator} from "./repository-name.directive";
     ]
 })
 export class CompareRepositoriesComponent implements OnInit {
-    public static readonly ERROR_NOT_FOUND = "not_found";
-    public static readonly ERROR_INVALID = "invalid";
 
     form: FormGroup;
     formErrors = {
@@ -24,8 +21,6 @@ export class CompareRepositoriesComponent implements OnInit {
     repository1: string = "";
     repository2: string = "";
     formSubmitted: boolean;
-    repository1Error: string;
-    repository2Error: string;
     validationMessages: {};
 
     @Output() onResultAvailable = new EventEmitter<any>();
@@ -49,6 +44,8 @@ export class CompareRepositoriesComponent implements OnInit {
                 this.formSubmitted = false;
                 if (this.validateData(response)) {
                     this.onResultAvailable.emit(response);
+                } else {
+
                 }
             }
         ).catch(() => {
@@ -56,7 +53,7 @@ export class CompareRepositoriesComponent implements OnInit {
         });
     }
 
-    onValueChanged(data?: any) {
+    onValueChanged() {
         const form = this.form;
 
         for (const field in this.formErrors) {
@@ -83,8 +80,16 @@ export class CompareRepositoriesComponent implements OnInit {
     validateData(data: any): boolean {
         let result = data[0] !== null && data[1] !== null;
 
-        this.repository1Error = data[0] === null ? CompareRepositoriesComponent.ERROR_NOT_FOUND : null;
-        this.repository2Error = data[1] === null ? CompareRepositoriesComponent.ERROR_NOT_FOUND : null;
+        if (data[0] == null) {
+            this.form.get("repository1").setErrors({"notFound" : true});
+        }
+
+        if (data[1] == null) {
+
+        }
+        //
+        // this.repository1Error = data[0] === null ? CompareRepositoriesComponent.ERROR_NOT_FOUND : null;
+        // this.repository2Error = data[1] === null ? CompareRepositoriesComponent.ERROR_NOT_FOUND : null;
 
         return result;
     }
@@ -93,17 +98,23 @@ export class CompareRepositoriesComponent implements OnInit {
         this.validationMessages = {
             repository1: {
                 required: "Repository name can't be empty",
-                repositoryName: "Invalid repository name",
+                pattern: "Invalid repository name",
                 notFound: "Repository not found"
             },
             repository2: {
                 required: "Repository name can't be empty",
-                repositoryName: "Invalid repository name",
+                pattern: "Invalid repository name",
                 notFound: "Repository not found"
             }
         };
 
         this.buildForm();
+        let repository = this.form.get("repository2");
+        repository.setErrors({
+            "notFound": true
+        });
+
+        this.onValueChanged();
     };
 
 
@@ -113,20 +124,20 @@ export class CompareRepositoriesComponent implements OnInit {
                 this.repository1,
                 [
                     Validators.required,
-                    repositoryNameValidator(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
                 ]
             ],
             "repository2": [
                 this.repository2,
                 [
                     Validators.required,
-                    repositoryNameValidator(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
+                    Validators.pattern(/[a-zA-Z0-9\.]+\/[a-zA-Z0-9\.]+/)
                 ]
             ],
         });
 
         this.form.valueChanges
-            .subscribe(data => this.onValueChanged(data));
+            .subscribe(() => this.onValueChanged());
         this.onValueChanged();
     }
 }
