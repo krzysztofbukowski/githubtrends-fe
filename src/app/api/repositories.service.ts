@@ -11,7 +11,7 @@ export class RepositoriesService {
     private apiEndpoint: string;
 
     constructor(private http: Http, @Inject("appConfig")config: AppConfig) {
-        this.apiEndpoint = config.apiHost + "/repos/";
+        this.apiEndpoint = config.apiHost + "/compare/";
     }
 
     /**

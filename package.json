@@ -5,8 +5,8 @@
   "description": "Angular2 starter app with webpack, karma, mocha, chai and sinon",
   "scripts": {
     "test": "karma start",
-    "start": "concurrently --kill-others \"npm run serve\" \"karma start\"",
-    "serve": "webpack-dev-server",
+    "start": "concurrently --kill-others \"npm run serve\" \"npm test\"",
+    "serve": "NODE_ENV=development webpack-dev-server",
     "build": "webpack -d --colors"
   },
   "license": "ISC",

@@ -50,7 +50,7 @@ describe("RepositoriesService", () => {
             );
 
             expect(result).to.be.string;
-            expect(result).to.be.eq(config.apiHost + "/repos/owner1/repository1,owner2/repository2");
+            expect(result).to.be.eq(config.apiHost + "/compare/owner1/repository1,owner2/repository2");
         });
     });
 

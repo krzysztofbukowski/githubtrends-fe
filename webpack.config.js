@@ -10,7 +10,7 @@
         ExtractTextPlugin = require("extract-text-webpack-plugin");
 
     module.exports = {
-        devtool: 'source-transform',
+        devtool: 'source-map',
         entry: {
             main: "./src/main.ts",
             vendor: "./src/vendor.ts",
