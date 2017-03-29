@@ -73,6 +73,7 @@ export class CompareRepositoriesComponent implements OnInit {
     }
 
     onSubmit(): void {
+        this.formSubmitted = true;
         this.compare(
             this.form.value.repository1,
             this.form.value.repository2

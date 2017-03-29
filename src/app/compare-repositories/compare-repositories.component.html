@@ -33,8 +33,10 @@
                 <button type="submit" value="Compare" class="btn btn-primary"
                         [disabled]="!form.valid"
                         [class.disabled]="!form.valid"
+                        *ngIf="!formSubmitted"
                 >Compare
                 </button>
+                <loading-icon *ngIf="formSubmitted"></loading-icon>
             </div>
         </div>
     </form>
